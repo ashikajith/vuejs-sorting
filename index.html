@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Calculate Distance</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" media="screen" title="no title">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  </head>
+  <body>
+    <div id='calculateDistanceApp' class="container padder">
+      <div class="row">
+        <div class="col-md-12">
+          <button @click.prevent = 'filteredUserData' class='btn btn-primary'>User Details < 100 KM</button>
+          <button @click.prevent = 'allData' class='btn btn-primary'>All Data</button>
+        </div>
+      </div>
+      <table class="table bordered">
+        <thead>
+          <th>User Id</th>
+          <th>Name</th>
+          <th>Distance From Dublin (KM)</th>
+        </thead>
+        <tbody v-for="user in sortedItems" v-bind:class="{green: greaterThanHundred(calculateDistance(user.latitude, user.longitude))}">
+          <template v-if="filteredData">
+            <tr v-if="greaterThanHundred(calculateDistance(user.latitude, user.longitude))">
+              <td> {{user.user_id}} </td>
+              <td> {{user.name}} </td>
+              <td>
+                 {{calculateDistance(user.latitude, user.longitude)}} Km
+              </td>
+            </tr>
+          </template>
+          <template v-else>
+            <tr v-bind:class="{green: greaterThanHundred(calculateDistance(user.latitude, user.longitude))}">
+              <td> {{user.user_id}} </td>
+              <td> {{user.name}} </td>
+              <td>
+                 {{calculateDistance(user.latitude, user.longitude)}} Km
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+  </body>
+  <script type="text/javascript" src = "application.js"></script>
+</html>
